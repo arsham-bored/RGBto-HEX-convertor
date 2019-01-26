@@ -1,12 +1,16 @@
 {
-  "name": "Hexor",
-  "version": "1.0.0",
-  "description": "",
+  "name": "hexor",
+  "version": "1.1.0",
+  "description": "Simple util for convert rgb to hex",
   "main": "hexor.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.0.0"
+  }
 }

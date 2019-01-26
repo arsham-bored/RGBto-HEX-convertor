@@ -1,47 +1,22 @@
 // thank to stackoverflow! https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 
-function componentToHex(c) {
-  let hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
-}
+const twoDigit = (str) => str.length === 1 ? `0${str}` : str;
+const toHex = (num) => num.toString(16);
+const clamp = (num) => (num > 255) ? 255 : (num < 0) ? 0 : num;
 
-function rgbToHex(r = 0, g = 0, b = 0) {
+/**
+ * Converts rgb to hex,
+ * Will clamp args between 0 and 255
+ * @param {number} r - red color
+ * @param {number} g - green color
+ * @param {number} b - blue color
+ * @returns {number} - hex value of color
+*/
+const rgbToHex = (r = 0, g = 0, b = 0) =>
+  [r, g, b]
+    .map(clamp)
+    .map(toHex)
+    .map(twoDigit)
+    .reduce((acc, cur) => acc + cur, '#');
 
-    // my includes ###################################3
-  let validateR_step_one = r > 255,
-    validateG_step_one = g > 255,
-    validateB_step_one = b > 255;
-
-  if (validateR_step_one) {
-    r = 255;
-  }  if (validateG_step_one) {
-    g = 255;
-  }  if (validateB_step_one) {
-    b = 255;
-  }
-
-  let validateR_step_two = r < 0,
-    validateG_step_two = g < 0,
-    validateB_step_two = b < 0;
-
-  if (validateR_step_two) {
-    r = 0;
-  }  if (validateG_step_two) {
-    g = 0;
-  }  if (validateB_step_two) {
-    b = 0;
-  }
-
-  //###############################################3
-
-   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
-
-const hex1 = rgbToHex(257, 512, 1024);
-const hex2 = rgbToHex(-1, -128, -512);
-const hex3 = rgbToHex(0,0,0)
-console.log(`
-    every thing is simple,
-    if value was more than 255, it will be 255.. like > (257, 512, 1024) >> ${hex1}
-    else if value was less than 0, it will be 0.. like > (-1, -128, -512) >> ${hex2}
-`)
+module.exports = rgbToHex;
